@@ -2,6 +2,20 @@
 wp_enqueue_script( 'script', get_template_directory_uri() . '/script.js', array ( 'jquery'), 1.1, true);
 register_nav_menu('desktop', 'Desktop navigation menu');
 
+function create_post_type() {
+    register_post_type( 'about_type',
+      array(
+        'labels' => array(
+          'name' => __( 'About Page' ),
+          'singular_name' => __( 'Pin on About page' )
+        ),
+        'public' => true,
+        'has_archive' => true,
+      )
+    );
+  }
+  add_action( 'init', 'create_post_type' );
+
 /**
  * Create HTML list of nav menu items.
  * Replacement for the native Walker, using the description.
@@ -92,4 +106,19 @@ class Description_Walker extends Walker_Nav_Menu
     }
 }
 
+function theme_slug_login_logo() { ?>
+    <style type="text/css">
+        #login h1 a, .login h1 a {
+            background-image: url(<?php echo get_stylesheet_directory_uri(); ?>/icon.png);
+            height:75px;
+            width:320px;
+            background-repeat: no-repeat;
+            padding-bottom: 20px;
+        }
+    </style>
+<?php }
+
+add_action( 'login_enqueue_scripts', 'theme_slug_login_logo' );
+
 ?>
+

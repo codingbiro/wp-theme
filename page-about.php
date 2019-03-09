@@ -1,7 +1,76 @@
-<?php $counter = 2;?>
+<?php $counter = 2; $name[0] = "a";
+$defposttype = "post_type=post";
+//default post_type
+if(get_field('default_post_type') == "pin"){
+$defposttype = "post_type=about_type";
+}
+else{
+}
+?>
 
-<?php get_header(); ?>
-<?php query_posts('post_type=post') ?>
+<?php get_header();
+if(get_field('short_post_types')) :?>
+    
+    <?php 
+        if(isset($_POST['color'])) {
+            $name = $_POST['color'];
+            $posttypecustom = $name[0];
+        }
+        else {
+            $posttypecustom = $defposttype;
+        }
+    ?>
+
+    <div class="custom-for-vps border border-primary rounded mx-2 mt-3">
+    
+    <?php
+        if($posttypecustom == $defposttype): ?>
+        <form action="" method="post">
+        <div class="input-group">
+        <div class="input-group-prepend">
+            <div class="my-text">
+            <input type="radio" name="color[]" id="color1" onclick="javascript: submit()" value="post_type=post" checked>
+            </div>
+        </div>
+        <small class="mx-3 my-1">Posts</small>
+        </div>
+        <div class="input-group">
+        <div class="input-group-prepend">
+            <div class="my-text">
+            <input type="radio" name="color[]" onclick="javascript: submit()" id="color2" value="post_type=about_type">
+            </div>
+        </div>
+        <small class="mx-3 my-1">Pins</small>
+        </div>
+        </form>
+
+        <?php else :?>
+        <form action="" method="post">
+        <div class="input-group">
+        <div class="input-group-prepend">
+            <div class="my-text">
+            <input type="radio" name="color[]" id="color1" onclick="javascript: submit()" value="post_type=post">
+            </div>
+        </div>
+        <small class="mx-3 my-1">Posts</small>
+        </div>
+        <div class="input-group">
+        <div class="input-group-prepend">
+            <div class="my-text">
+            <input type="radio" name="color[]" onclick="javascript: submit()" id="color2" value="post_type=about_type" checked>
+            </div>
+        </div>
+        <small class="mx-3 my-1">Pins</small>
+        </div>
+        </form>
+        <?php
+        endif;
+
+else : $posttypecustom = $defposttype;
+endif;
+
+query_posts($posttypecustom) ?>
+</div>
 <div class="container my-5">
         <div class="card-columns">
         <!-- Start the Loop. -->
@@ -65,7 +134,24 @@
                     </div>
                 </div>
             <?php endif; ?>
-            <!-- <div class="card p-3">
+            
+    
+    <!-- Stop The Loop (but note the "else:" - see next line). -->
+
+    <?php $counter++; endwhile; else : ?>
+
+        </div>
+    </div>
+    <!-- The very first "if" tested to see if there were any Posts to -->
+    <!-- display.  This "else" part tells what do if there weren't any. -->
+    <p><?php esc_html_e( 'Sorry, no posts matched your criteria.' ); ?></p>
+
+
+    <!-- REALLY stop The Loop. -->
+    <?php endif; ?>
+
+
+    <!-- <div class="card p-3">
                 <blockquote class="blockquote mb-0 card-body">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
                     <footer class="blockquote-footer">
@@ -122,18 +208,5 @@
                     <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                 </div>
             </div> -->
-    
-    <!-- Stop The Loop (but note the "else:" - see next line). -->
 
-    <?php $counter++; endwhile; else : ?>
-
-        </div>
-    </div>
-    <!-- The very first "if" tested to see if there were any Posts to -->
-    <!-- display.  This "else" part tells what do if there weren't any. -->
-    <p><?php esc_html_e( 'Sorry, no posts matched your criteria.' ); ?></p>
-
-
-    <!-- REALLY stop The Loop. -->
-    <?php endif; ?>
 <?php get_footer(); ?>

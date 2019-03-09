@@ -12,3 +12,20 @@ Tags: vince, biro, birovince, vincetheme
 This theme, like WordPress, is licensed under the GPL.
 Use it to make something cool, have fun, and share what you've learned with others.
 */
+
+.my-text {
+    background-color: transparent!important;
+    border-bottom-color: transparent!important;
+    border-color: transparent!important;
+    
+    text-align: center;
+    line-height: 24px;
+    padding-left: 12px;
+}
+
+@media screen and (min-width: 768px){
+    .custom-for-vps {
+        position: absolute;
+        margin-right: 0px!important;
+    }
+}

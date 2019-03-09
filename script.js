@@ -5,3 +5,10 @@ function scrolljs(x) {
 
     jQuery( "#nav-"+x ).addClass( "active" );
 }
+
+var needed = $(window).height() - 360;
+var arrow = needed + 330;
+if(needed<0) needed = 0;
+
+$('#showcase').css("margin-top", `${needed}px`);
+$('#showarrow').css("top",`${arrow}px`)
