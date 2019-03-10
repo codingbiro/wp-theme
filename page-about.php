@@ -1,5 +1,6 @@
 <?php $counter = 2; $name[0] = "a";
 $defposttype = "post_type=post";
+$post_posttype = "post_type=post";
 //default post_type
 if(get_field('default_post_type') == "pin"){
 $defposttype = "post_type=about_type";
@@ -24,7 +25,7 @@ if(get_field('short_post_types')) :?>
     <div class="custom-for-vps border border-primary rounded mx-2 mt-3">
     
     <?php
-        if($posttypecustom == $defposttype): ?>
+        if($posttypecustom == $post_posttype): ?>
         <form action="" method="post">
         <div class="input-group">
         <div class="input-group-prepend">
